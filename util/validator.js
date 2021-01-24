@@ -30,11 +30,11 @@ module.exports.validateUserRegistration = (
 };
 
 module.exports.validateUserLogin = (
-    email,
+    username,
     password) => {
     const errors = {};
-    if (email.trim() === '') {
-        errors.email = 'email must not be empty';
+    if (username.trim() === '') {
+        errors.username = 'username must not be empty';
     }
     if (password === '') {
         errors.password = 'password must not be empty';

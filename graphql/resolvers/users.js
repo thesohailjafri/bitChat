@@ -18,30 +18,30 @@ module.exports = {
     Mutation: {
         async login(_,
             {
-                loginInput: { email, password }
+                loginInput: { username, password }
             },
             context,
             info) {
             const { errors, valid } = validateUserLogin(
-                email, password
+                username, password
             );
             if (!valid) {
                 throw new UserInputError('Errors', { errors });
             }
-            const _email = await User.findOne({ email });
-            if (!_email) {
-                errors.general = 'email do not exist';
-                throw new UserInputError('email do not exist', { errors });
+            const _username = await User.findOne({ username });
+            if (!_username) {
+                errors.general = 'username do not exist';
+                throw new UserInputError('username do not exist', { errors });
             }
-            const match = await bcrypt.compare(password, _email.password);
+            const match = await bcrypt.compare(password, _username.password);
             if (!match) {
                 errors.general = 'password do not match';
                 throw new UserInputError('password do not match', { errors });
             }
-            const token = generateToken(_email);
+            const token = generateToken(_username);
             return {
-                ..._email._doc,
-                id: _email._id,
+                ..._username._doc,
+                id: _username._id,
                 token
             };
         },
