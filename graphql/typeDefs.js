@@ -8,12 +8,16 @@ type Post{
     username:String! 
     comments:[Comment]!
     likes:[Like]! 
+    likeCount: Int!
+    commentCount: Int!
 }
 type Comment{
     id:ID!
     body: String!
     createdAt: String!
     username: String!
+    likes:[Like]!
+    commentLikesCount:  Int!
 }
 type Like{
     id:ID!
@@ -48,7 +52,9 @@ type Mutation{
     deletePost(postId: ID!):String!
     createComment(postId: ID!,body: String!):Post!
     deleteComment(postId: ID!,commentId: ID!):Post!
+    likeComment(postId: ID!,commentId: ID!):Post!
     likePost(postId: ID!):Post!
+
 }
 
 `;
